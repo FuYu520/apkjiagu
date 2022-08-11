@@ -60,12 +60,19 @@ public class JiaGuMain {
     private final static boolean isRelease = true;
 
     static {
-        File file = new File(ROOT);
-        String strDll = file.getAbsolutePath() + (isRelease ? "" : "/jiaguLib")+"/libs/sx_jiagu.dll";
-        System.out.println("根目录=========>" + strDll);
+        //File file = new File(ROOT);
+        //System.out.println(System.getProperty("java.library.path"));
+        //String strDll = file.getAbsolutePath() + (isRelease ? "" : "/jiaguLib")+"/libs/sx_jiagu.dll";
+        //System.out.println("根目录=========>" + strDll);
         //load - 支持采用绝对路径的dll库
         //loadLibrary 加载的是jre/bin下的dll库
-        System.load(strDll);//这是我即将要重新实现的动态库名字
+        //System.loadLibrary("sx_jiagu.dll");//这是我即将要重新实现的动态库名字
+        //System.load("sx_jiagu.dll");//这是我即将要重新实现的动态库名字
+        System.load("E:\\androidStudio\\dex\\apkjiagu\\jiagu\\libs\\VCRUNTIME140D.dll");
+        System.load("E:\\androidStudio\\dex\\apkjiagu\\jiagu\\libs\\ucrtbased.dll");
+        System.load("E:\\androidStudio\\dex\\apkjiagu\\jiagu\\libs\\KERNEL32.dll");
+        //上面三个dll都是sx_jiagu的依赖项
+        System.load("E:\\androidStudio\\dex\\apkjiagu\\jiagu\\libs\\sx_jiagu.dll");//这是我即将要重新实现的动态库名字
     }
 
     /**
@@ -158,7 +165,7 @@ public class JiaGuMain {
         ZipUtil.unZip(aarFile, aarTemp);
         File classesJar = new File(aarTemp, "classes.jar");
         File classesDex = new File(aarTemp, "classes.dex");
-        boolean ret = ProcessUtil.executeCommand(String.format(Locale.CHINESE,"dx --dex --output %s %s",classesDex.getPath(),classesJar.getPath()));
+        boolean ret = ProcessUtil.executeCommand(String.format(Locale.CHINESE,"dx --dex --output %s %s",classesDex.getPath(), classesJar.getPath()));
         if (ret){
             System.out.println("已生成======"+classesDex.getPath());
         }

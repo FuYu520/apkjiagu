@@ -213,7 +213,8 @@ public class LoadDexUtil {
         while (it.hasNext()) {
             Object providerClientRecord = it.next();
             Object localProvider = RefInvoke.getFieldOjbect("android.app.ActivityThread$ProviderClientRecord", providerClientRecord, "mLocalProvider");
-            RefInvoke.setFieldOjbect("android.content.ContentProvider", "mContext", localProvider, app);
+            //RefInvoke.setFieldOjbect("android.content.ContentProvider", "mContext", localProvider, app);
+            RefInvoke.setFieldOjbect("androidx.core.content.FileProvider", "mContext", localProvider, app);
         }
 
         LogUtil.info( "app ===== "+app + "=====开始执行原Application");
